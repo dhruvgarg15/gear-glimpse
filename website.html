@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GearGlimpse | Expert Affiliate Reviews</title>
+    <style>
+        /* --- CSS STYLING --- */
+        :root {
+            --primary-gradient: linear-gradient(to bottom, #000000, #8B0000);
+            --dark-red: #8B0000;
+            --light-gray: #f4f4f4;
+            --border-color: #ddd;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        /* Affiliate Disclosure */
+        .top-disclosure {
+            text-align: center;
+            font-size: 11px;
+            padding: 8px 0;
+            background-color: #fff;
+            border-bottom: 1px solid var(--border-color);
+            color: #666;
+            width: 100%;
+        }
+
+        /* Header Area */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-gg {
+            font-family: 'Snell Roundhand', 'Apple Chancery', cursive;
+            font-size: 30px;
+            font-weight: bold;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 8px;
+        }
+
+        .logo-text {
+            font-family: 'Impact', Charcoal, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        /* Auth and Search */
+        .auth-bar {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .auth-bar:hover { color: var(--dark-red); }
+
+        .search-container {
+            display: flex;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        #ai-finder {
+            padding: 8px 12px;
+            border: none;
+            width: 220px;
+            outline: none;
+        }
+
+        .search-btn {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            cursor: pointer;
+        }
+
+        /* Navigation */
+        nav {
+            background: #fff;
+            border-bottom: 3px solid #000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 15px 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .nav-item:hover { background: var(--light-gray); }
+
+        /* Dropdowns */
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            min-width: 220px;
+            list-style: none;
+            padding: 10px 0;
+        }
+
+        .nav-item:hover .submenu { display: block; }
+
+        .submenu li {
+            padding: 10px 20px;
+            font-weight: normal;
+            text-transform: none;
+        }
+
+        .submenu li:hover { background: var(--light-gray); color: var(--dark-red); }
+
+        .deals-link { color: var(--dark-red); }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: white;
+            width: 350px;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .close { position: absolute; right: 20px; top: 10px; cursor: pointer; font-size: 24px; }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+        }
+
+        .btn-main {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .forgot-link {
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            text-decoration: underline;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* Content Area */
+        .hero {
+            max-width: 1000px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .hero h1 { font-size: 48px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="top-disclosure">
+        We independently review everything we recommend. When you buy through our links, we may earn a commission.
+    </div>
+
+    <header>
+        <div class="header-left">
+            <span class="logo-gg">GG</span>
+            <span class="logo-text">GearGlimpse</span>
+        </div>
+
+        <div class="header-right">
+            <div class="auth-bar" onclick="openModal('loginModal')">
+                <span>&#128100;</span> Log In / Register
+            </div>
+            <div class="search-container">
+                <input type="text" id="ai-finder" placeholder="GearGlimpse Finder">
+                <button class="search-btn" onclick="aiSearch()">Search</button>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul class="nav-links">
+            <li class="nav-item">Home & Garden
+                <ul class="submenu">
+                    <li>Vacuums and Laundry</li>
+                    <li>Garden and outdoors</li>
+                    <li>Heating, cooling, and Air Quality</li>
+                    <li>Home and decor</li>
+                    <li>Home Improvement</li>
+                    <li>Home security and safety</li>
+                </ul>
+            </li>
+            <li class="nav-item">Kitchen
+                <ul class="submenu">
+                    <li>Large appliances</li>
+                    <li>Small appliances</li>
+                    <li>Cooking and Baking</li>
+                    <li>Coffee and Tea</li>
+                    <li>Grilling</li>
+                </ul>
+            </li>
+            <li class="nav-item">Office</li>
+            <li class="nav-item">Health & Lifestyle
+                <ul class="submenu">
+                    <li>Fitness</li>
+                    <li>Health</li>
+                    <li>Gaming</li>
+                    <li>Outdoors</li>
+                    <li>Travel</li>
+                </ul>
+            </li>
+            <li class="nav-item">Tech</li>
+            <li class="nav-item deals-link">Deals</li>
+        </ul>
+    </nav>
+
+    <main class="hero">
+        <h1>Trusted Reviews for Tech & Gear.</h1>
+        <p>Expert picks for your home, office, and lifestyle.</p>
+    </main>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <div id="auth-box">
+                <h2 id="modal-title">Sign In</h2>
+                <input type="text" id="user-id" placeholder="Email or Phone Number">
+                <input type="password" id="user-pass" placeholder="Password">
+                <button class="btn-main" onclick="handleAuth()">Continue</button>
+                <span class="forgot-link" onclick="handleForgot()">Forgot Password?</span>
+                <hr style="margin: 20px 0;">
+                <p style="font-size: 13px;">New to GearGlimpse?</p>
+                <button class="btn-main" style="background:#444;" onclick="showRegister()">Create Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Controls
+        function openModal(id) { document.getElementById(id).style.display = "block"; }
+        function closeModal(id) { document.getElementById(id).style.display = "none"; }
+
+        // Finder Logic
+        function aiSearch() {
+            const query = document.getElementById('ai-finder').value;
+            if(query) {
+                alert("GearGlimpse Finder is scanning our expert reviews for: " + query);
+            }
+        }
+
+        // Authentication Flow
+        function handleAuth() {
+            const id = document.getElementById('user-id').value;
+            if(!id) { alert("Please enter Email or Phone"); return; }
+            
+            // Simulating OTP Send
+            alert("Security Check: Sending OTP to " + id);
+            let otp = prompt("Enter the 6-digit OTP sent to your device:");
+            
+            if(otp === "123456") { // Dummy OTP for testing
+                alert("Identity Verified. Welcome back to GearGlimpse!");
+                closeModal('loginModal');
+            } else {
+                alert("Invalid OTP. Please try again.");
+            }
+        }
+
+        function handleForgot() {
+            const id = prompt("Enter Email or Phone to reset password:");
+            if(id) {
+                alert("OTP Sent to " + id);
+                let otp = prompt("Enter OTP:");
+                if(otp) {
+                    alert("Verification successful. Please enter your new strong password.");
+                    prompt("New Password:");
+                    alert("Password Updated! You can now log in.");
+                }
+            }
+        }
+
+        function showRegister() {
+            document.getElementById('modal-title').innerText = "Register";
+            alert("Registration requires a verified Email/Phone. We will send an OTP now.");
+        }
+
+        // Close modal if user clicks outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
